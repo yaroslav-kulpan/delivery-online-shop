@@ -40,7 +40,6 @@ class App extends PureComponent {
     if (prevState.page !== this.state.page) {
       this.fetchProducts();
     }
-
     if (prevProps.location.search !== this.props.location.search) {
       this.fetchProducts();
     }

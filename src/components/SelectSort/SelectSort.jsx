@@ -1,11 +1,10 @@
 import React, { PureComponent } from "react";
-import { withRouter } from "react-router";
+import { withRouter } from "react-router-dom";
 import queryString from "query-string";
 import CategoriesService from "../../services/categories.service";
 
 class SelectSort extends PureComponent {
   categoriesService = new CategoriesService();
-
   state = {
     categories: [],
     category: "",
@@ -21,7 +20,6 @@ class SelectSort extends PureComponent {
       .getAllCategories()
       .then(({ data: { result: categories } }) => this.setState({ categories }))
       .catch((error) => this.setState({ error }));
-    console.log(this.state.categories);
   }
 
   handleChangeCategory = (evt) => {
@@ -36,7 +34,6 @@ class SelectSort extends PureComponent {
 
   render() {
     const { categories, category } = this.state;
-
     return (
       <select
         name="category"
