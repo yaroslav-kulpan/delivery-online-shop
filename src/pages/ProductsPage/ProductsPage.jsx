@@ -27,7 +27,7 @@ class App extends PureComponent {
   };
 
   stringifyQuery = (query) => {
-    const queryStr = queryString.stringify(query);
+    const queryStr = queryString.stringify(query, { skipEmptyString: true });
     return queryStr ? `?${queryStr}` : "";
   };
 
@@ -40,11 +40,27 @@ class App extends PureComponent {
     if (prevState.page !== this.state.page) {
       this.fetchProducts();
     }
+
+    if (prevProps.location.search !== this.props.location.search) {
+      this.fetchProducts();
+    }
   }
 
   fetchProducts() {
     this.setState({ loading: true });
-    const query = this.stringifyQuery({ page: this.state.page });
+    const { categoryId } = queryString.parse(this.props.location.search);
+    const params = {
+      page: this.state.page,
+      categoryId,
+      limits: 5,
+    };
+    for (const key of Object.keys(params)) {
+      if (params[key] === "") {
+        delete params[key];
+      }
+    }
+    const query = this.stringifyQuery(params);
+
     this.productsService
       .fetchProducts(query)
       .then(({ data }) =>
