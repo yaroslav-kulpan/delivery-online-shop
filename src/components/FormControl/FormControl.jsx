@@ -1,0 +1,22 @@
+import React from "react";
+import { ErrorMessage } from "formik";
+import TextInput from "../../shared/components/TextInput";
+
+const FormControl = ({ label, ...props }) => {
+  return (
+    <div className="mb-3">
+      <label htmlFor={props.id} className="form-label">
+        Email
+      </label>
+
+      <TextInput {...props} />
+      <ErrorMessage
+        name={props.name}
+        className="invalid-feedback d-block"
+        component="small"
+      />
+    </div>
+  );
+};
+
+export default FormControl;

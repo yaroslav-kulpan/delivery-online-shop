@@ -1,23 +1,21 @@
-import {StrictMode} from "react";
-import {BrowserRouter} from 'react-router-dom';
+import { StrictMode } from "react";
+import { BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom";
-import App from './components/App';
-// import SearchPage from "./pages/SearchPage/SearchPage";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+
+import App from "./components/App";
+import { store, persistor } from "./redux/configure-store";
 
 ReactDOM.render(
-    <StrictMode>
+  <StrictMode>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
-            <App/>
+          <App />
         </BrowserRouter>
-    </StrictMode>,
-    document.getElementById("root")
+      </PersistGate>
+    </Provider>
+  </StrictMode>,
+  document.getElementById("root")
 );
-
-
-// url = http://localhost:3000/products/search
-// switch(url) {
-// case '/products/search':
-// return <Foo />
-// case /products:
-// return <Bar />
-// }
