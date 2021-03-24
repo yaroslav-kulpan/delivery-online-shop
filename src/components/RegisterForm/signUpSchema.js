@@ -1,7 +1,6 @@
 import * as Yup from "yup";
 
 const isStrongPassword = /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/;
-
 const signUpSchema = Yup.object().shape({
   email: Yup.string()
     .required("Поле обязательное!")
