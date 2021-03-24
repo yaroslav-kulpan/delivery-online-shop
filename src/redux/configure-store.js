@@ -1,5 +1,4 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import reducer from "./root.reducer";
 import {
   persistStore,
   FLUSH,
@@ -9,6 +8,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import reducer from "./root.reducer";
 
 const middleware = [
   ...getDefaultMiddleware({

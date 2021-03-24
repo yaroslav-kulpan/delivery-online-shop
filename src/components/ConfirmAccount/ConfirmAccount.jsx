@@ -9,20 +9,18 @@ import TextInput from "../../shared/components/TextInput";
 
 const ConfirmAccount = ({
   confirmToken,
-  removeConfirmToken,
   confirmAccount,
+  removeConfirmToken,
 }) => {
   const history = useHistory();
-
   return (
     <Modal open={confirmToken} onClose={removeConfirmToken}>
-      <Formik>
+      <Formik
         initialValues={{ verificationCode: "" }}
-        onSubmit=
-        {({ verificationCode }) => {
+        onSubmit={({ verificationCode }) => {
           confirmAccount(verificationCode, history);
         }}
-        >
+      >
         <Form>
           <TextInput type="text" name="verificationCode" />
           <button type="submit" className="btn btn-primary mt-2 w-100">

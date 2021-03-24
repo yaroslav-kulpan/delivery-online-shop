@@ -1,5 +1,5 @@
-import React from "react";
 import { ErrorMessage } from "formik";
+import React from "react";
 import TextInput from "../../shared/components/TextInput";
 
 const FormControl = ({ label, ...props }) => {
@@ -8,7 +8,6 @@ const FormControl = ({ label, ...props }) => {
       <label htmlFor={props.id} className="form-label">
         {label}
       </label>
-
       <TextInput {...props} />
       <ErrorMessage
         name={props.name}
