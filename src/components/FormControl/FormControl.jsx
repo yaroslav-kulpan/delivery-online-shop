@@ -6,7 +6,7 @@ const FormControl = ({ label, ...props }) => {
   return (
     <div className="mb-3">
       <label htmlFor={props.id} className="form-label">
-        Email
+        {label}
       </label>
 
       <TextInput {...props} />
