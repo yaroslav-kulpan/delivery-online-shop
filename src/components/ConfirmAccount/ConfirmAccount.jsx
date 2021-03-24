@@ -6,6 +6,7 @@ import { removeConfirmToken } from "../../redux/auth/auth.actions";
 import { confirmAccount } from "../../redux/auth/auth.operations";
 import { Modal } from "../../shared/components";
 import TextInput from "../../shared/components/TextInput";
+import FormControl from "../FormControl/FormControl";
 
 const ConfirmAccount = ({
   confirmToken,
@@ -14,7 +15,7 @@ const ConfirmAccount = ({
 }) => {
   const history = useHistory();
   return (
-    <Modal open={confirmToken} onClose={removeConfirmToken}>
+    <Modal open={true} onClose={removeConfirmToken}>
       <Formik
         initialValues={{ verificationCode: "" }}
         onSubmit={({ verificationCode }) => {
@@ -22,7 +23,7 @@ const ConfirmAccount = ({
         }}
       >
         <Form>
-          <TextInput type="text" name="verificationCode" />
+          <FormControl type="number" name="verificationCode" />
           <button type="submit" className="btn btn-primary mt-2 w-100">
             Confirm
           </button>
