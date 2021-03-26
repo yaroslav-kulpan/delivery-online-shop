@@ -7,27 +7,24 @@ import { confirmAccount } from "../../redux/auth/auth.operations";
 import { Modal } from "../../shared/components";
 // import TextInput from "../../shared/components/TextInput";
 import FormControl from "../FormControl/FormControl";
-import * as Yup from "yup"
-
+import * as Yup from "yup";
 
 const validationSchema = Yup.object().shape({
-  verificationCode: Yup.string().length(6, "min length 6 symbols").required( "the field is required")
-})
+  verificationCode: Yup.string()
+    .length(6, "min length 6 symbols")
+    .required("the field is required"),
+});
 
-
-const ConfirmAccount = ({
-  
-
-}) => {
+const ConfirmAccount = () => {
   const history = useHistory();
 
   const dispatch = useDispatch();
 
-  const confirmToken = useSelector(state=>Boolean(state.auth.confirmToken));
-  const loading =useSelector(state=>state.auth.loading)
-  
+  const confirmToken = useSelector((state) => Boolean(state.auth.confirmToken));
+  const loading = useSelector((state) => state.auth.loading);
+
   return (
-    <Modal open={confirmToken} onClose={()=>dispatch(removeConfirmToken())}>
+    <Modal open={confirmToken} onClose={() => dispatch(removeConfirmToken())}>
       <Formik
         validationSchema={validationSchema}
         initialValues={{ verificationCode: "" }}
@@ -37,7 +34,11 @@ const ConfirmAccount = ({
       >
         <Form>
           <FormControl type="string" name="verificationCode" />
-          <button type="submit" className="btn btn-primary mt-2 w-100" disabled={loading}>
+          <button
+            type="submit"
+            className="btn btn-primary mt-2 w-100"
+            disabled={loading}
+          >
             Confirm
           </button>
         </Form>
@@ -45,11 +46,5 @@ const ConfirmAccount = ({
     </Modal>
   );
 };
-
-
-// const mapDispatch = {
-//   confirmAccount,
-//   removeConfirmToken,
-// };
 
 export default ConfirmAccount;
