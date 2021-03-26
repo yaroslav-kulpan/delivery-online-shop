@@ -1,39 +1,40 @@
-import React, { PureComponent } from "react";
-import { withRouter } from "react-router-dom";
+import React, { useEffect, useMemo, useState } from "react";
+import { useHistory, useLocation, withRouter } from "react-router-dom";
 import queryString from "query-string";
 import CategoriesService from "../../services/categories.service";
 
-class SelectSort extends PureComponent {
-  categoriesService = new CategoriesService();
-  state = {
+  const initialState = {
     categories: [],
     category: "",
     error: null,
   };
-
-  componentDidMount() {
-    const { categoryId } = queryString.parse(this.props.location.search);
+  const SelectSort = () => {
+  const categoriesService = useMemo(() => new CategoriesService(), []);
+  const [state, setState] = useState(initialState);
+  const location = useLocation();
+  const history = useHistory();
+  
+    useEffect(() => {
+    const { categoryId } = queryString.parse(location.search);
     if (categoryId) {
-      this.setState({ category: categoryId });
+      setState(prevState => ({ ...prevState, category: categoryId }));
     }
-    this.categoriesService
+    categoriesService
       .getAllCategories()
-      .then(({ data: { result: categories } }) => this.setState({ categories }))
-      .catch((error) => this.setState({ error }));
-  }
+      .then(({ data: { result: categories } }) => setState(prevState => ({ ...prevState, categories })))
+      .catch((error) => setState(prevState => ({ ...prevState, error })));
+  }, [CategoriesService, location.search]);
 
-  handleChangeCategory = (evt) => {
+  const handleChangeCategory = (evt) => {
     const { value } = evt.target;
-    this.setState({ category: value });
+    setState(prevState => ({...prevState, category: value }));
     if (!value) {
-      this.props.history.push(`products`);
+      history.push(`products`);
       return;
     }
-    this.props.history.push(`?categoryId=${value}`);
+    history.push(`?categoryId=${value}`);
   };
-
-  render() {
-    const { categories, category } = this.state;
+  const { categories, category } = state;
     return (
       <select
         name="category"
@@ -41,7 +42,7 @@ class SelectSort extends PureComponent {
         className="form-select"
         aria-label="Sort"
         value={category}
-        onChange={this.handleChangeCategory}
+        onChange={handleChangeCategory}
       >
         <option value="">Выбрать категорию</option>
         {categories.map(({ _id, name }) => (
@@ -52,6 +53,5 @@ class SelectSort extends PureComponent {
       </select>
     );
   }
-}
 
-export default withRouter(SelectSort);
+export default SelectSort;

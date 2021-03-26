@@ -1,6 +1,6 @@
 import { Form, Formik } from "formik";
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { removeConfirmToken } from "../../redux/auth/auth.actions";
 import { confirmAccount } from "../../redux/auth/auth.operations";
@@ -15,24 +15,23 @@ const validationSchema = Yup.object().shape({
 })
 
 
-const ConfirmAccount = ({
-  confirmToken,
-  confirmAccount,
-  removeConfirmToken,
-}) => {
+const ConfirmAccount = () => {
+  const confirmToken = useSelector(state => Boolean(state.auth.confirmToken));
+  const loading = useSelector(state => state.auth.loading);
   const history = useHistory();
+  const dispatch = useDispatch();
   return (
-    <Modal open={confirmToken} onClose={removeConfirmToken}>
+    <Modal open={confirmToken} onClose={() => dispatch(removeConfirmToken())}>
       <Formik
         validationSchema={validationSchema}
         initialValues={{ verificationCode: "" }}
         onSubmit={({ verificationCode }) => {
-          confirmAccount(verificationCode, history);
+          dispatch(confirmAccount(verificationCode, history));
         }}
       >
         <Form>
           <FormControl type="string" name="verificationCode" />
-          <button type="submit" className="btn btn-primary mt-2 w-100">
+          <button type="submit" className="btn btn-primary mt-2 w-100" disabled={loading}>
             Confirm
           </button>
         </Form>
@@ -41,14 +40,4 @@ const ConfirmAccount = ({
   );
 };
 
-const mapState = (state) => ({
-  confirmToken: Boolean(state.auth.confirmToken),
-  loading: state.auth.loading,
-});
-
-const mapDispatch = {
-  confirmAccount,
-  removeConfirmToken,
-};
-
-export default connect(mapState, mapDispatch)(ConfirmAccount);
+export default ConfirmAccount;
