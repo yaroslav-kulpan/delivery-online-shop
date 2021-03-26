@@ -1,19 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { withWishlist } from "../../hocs";
 import { toCurrency } from "../../lib";
 import WishListIcon from "../../shared/icons/WishListIcon";
+import useWishlist from "../../hooks/useWishlist";
+import useAuth from "../../hooks/use-auth";
 
-const Product = ({
-  name,
-  price,
-  thumbnail,
-  _id,
-  // status,
-  // addToWishList,
-  // items = [],
-}) => {
+const Product = ({ name, price, thumbnail, _id, status }) => {
+  const { items, addToWishList } = useWishlist();
+  const loginIn = useAuth();
+  const isAddedToWish = items.some((item) => item._id === _id);
   return (
     <div className="col-12 col-lg-4">
       <div className="card mt-3">
@@ -29,20 +25,22 @@ const Product = ({
           <h6 className="card-title">{name.ukr}</h6>
           <p>Цена: {toCurrency({ price })}</p>
           <button className="btn btn-primary">Купить</button>
-          <button
-            type="button"
-            // disabled={isAddedToWish}
-            className="btn btn-warning mx-3"
-            // onClick={() =>
-            //   addToWishList({ _id, price, thumbnail, name, status })
-            // }
-          >
-            <WishListIcon />
-          </button>
+          {loginIn && (
+            <button
+              type="button"
+              disabled={isAddedToWish}
+              className="btn btn-warning mx-3"
+              onClick={() =>
+                addToWishList({ _id, price, thumbnail, name, status })
+              }
+            >
+              <WishListIcon />
+            </button>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-export default withWishlist(Product);
+export default Product;

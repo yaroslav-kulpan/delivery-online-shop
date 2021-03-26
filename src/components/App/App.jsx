@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Redirect } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import ProductsPage from "../../pages/ProductsPage";
 import HomePage from "../../pages/HomePage";
@@ -13,10 +14,20 @@ import RegisterPage from "../../pages/RegisterPage";
 import ProfilePage from "../../pages/ProfilePage";
 import PrivateRoute from "../PrivateRoute";
 import PublicRoute from "../PublicRoute";
+import useOnlineStatus from "../../hooks/use-online-status";
+import { getCurrentUser } from "../../redux/auth/auth.operations";
 
 const App = () => {
+  const dispatch = useDispatch();
+  const isOnline = useOnlineStatus();
+
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
+
   return (
     <CommonLayout>
+      <p>{!isOnline && "offline"}</p>
       <Switch>
         <PublicRoute exact path="/" component={HomePage} />
         <PublicRoute exact restricted path="/login" component={LoginPage} />
