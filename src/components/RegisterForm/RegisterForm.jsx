@@ -7,8 +7,8 @@ import signUpSchema from "./signUpSchema";
 
 const RegisterForm = () => {
 
-const loading = useSelector((state)=>state.auth.loading)
-const dispatch = useDispatch();
+  const loading = useSelector((state) => state.auth.loading);
+  const dispatch = useDispatch();
 
   return (
     <Formik
@@ -66,6 +66,5 @@ const dispatch = useDispatch();
     </Formik>
   );
 };
-
 
 export default RegisterForm;
