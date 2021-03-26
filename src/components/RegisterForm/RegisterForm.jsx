@@ -6,6 +6,7 @@ import { register } from "../../redux/auth/auth.operations";
 import signUpSchema from "./signUpSchema";
 
 const RegisterForm = () => {
+
   const loading = useSelector((state) => state.auth.loading);
   const dispatch = useDispatch();
 
