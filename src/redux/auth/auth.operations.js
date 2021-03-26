@@ -71,7 +71,7 @@ const getCurrentUser = () => async (dispatch, getState) => {
   if (!accessToken) {
     return;
   }
-  axios.defaults.headers.Authorization = accessToken;
+  axios.defaults.headers.Authorization = `Bearer ${accessToken}`;
   dispatch(getCurrentUserRequested());
   try {
     const { data } = await axios.get(
