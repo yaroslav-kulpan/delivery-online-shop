@@ -1,9 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import WishListIcon from "../../icons/WishListIcon";
-import withAuth from "../../../hocs/with-auth";
 import ExitIcon from "../../icons/ExitIcon";
 import UserDetails from "../../../components/UserDetails";
+import useWishlist from "../../../hooks/useWishlist";
+
+import { logout } from "../../../redux/auth/auth.actions";
+import useAuth from "../../../hooks/use-auth";
 
 // import { withWishlist } from "../../../hocs";
 
@@ -14,7 +18,12 @@ const navArr = [
   // { label: <WishListIcon />, exact: false, to: "/wishlist" },
 ];
 
-const Navbar = ({ loginIn, logout }) => {
+const Navbar = () => {
+  const dispatch = useDispatch();
+  const { items } = useWishlist();
+  const loginIn = useAuth();
+  const exit = () =>  dispatch(logout());
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
@@ -50,9 +59,10 @@ const Navbar = ({ loginIn, logout }) => {
             <>
               <UserDetails />
               <Link to="/wishlist" className="btn btn-warning mx-2">
-                <WishListIcon />0
+                <WishListIcon />
+                {items.length}
               </Link>
-              <button className="btn btn-primary mx-2" onClick={logout}>
+              <button className="btn btn-primary mx-2" onClick={exit}>
                 <ExitIcon />
               </button>
             </>
@@ -63,4 +73,4 @@ const Navbar = ({ loginIn, logout }) => {
   );
 };
 
-export default withAuth(Navbar);
+export default Navbar;

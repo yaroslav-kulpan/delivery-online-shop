@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { removeConfirmToken } from "../../redux/auth/auth.actions";
 import { confirmAccount } from "../../redux/auth/auth.operations";
 import { Modal } from "../../shared/components";
+<<<<<<< HEAD
 import TextInput from "../../shared/components/TextInput";
 import FormControl from "../FormControl/FormControl";
 import * as Yup from "yup";
@@ -14,6 +15,17 @@ const validationSchema = Yup.object().shape({
     .length(6, "min length 6 symbols")
     .required("the field is required"),
 });
+=======
+// import TextInput from "../../shared/components/TextInput";
+import FormControl from "../FormControl/FormControl";
+import * as Yup from "yup"
+
+
+const validationSchema = Yup.object().shape({
+  verificationCode: Yup.string().length(6, "min length 6 symbols").required( "the field is required")
+})
+
+>>>>>>> 18ecb14591514472d4757e2be15a0dc09fd3ad78
 
 const ConfirmAccount = ({
   confirmToken,
