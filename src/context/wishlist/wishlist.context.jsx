@@ -1,14 +1,12 @@
 import { createContext, PureComponent } from "react";
 
 const defaultValue = {
-  state: {
-    items: [],
-  },
+  items: [],
   addToWishList: () => null,
   removeWishlistItem: () => null,
 };
 
-const WishlistContext = createContext(defaultValue);
+export const WishlistContext = createContext(defaultValue);
 
 WishlistContext.displayName = "WishlistContext";
 

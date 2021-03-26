@@ -1,8 +1,10 @@
 import React from "react";
 import { toCurrency } from "../../lib";
 import TrashIcon from "../../shared/icons/TrashIcon";
+import useWishlist from "../../hooks/useWishlist";
 
-const WishListPage = ({ items = [], removeWishlistItem }) => {
+const WishListPage = () => {
+  const { items, removeWishlistItem } = useWishlist();
   return (
     <div className="cart-wrap">
       <div className="container">

@@ -1,11 +1,15 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useCallback } from "react";
 import { Form, Formik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/auth/auth.operations";
-import signInSchema from "./signInSchema";
 import FormControl from "../FormControl/FormControl";
+import signInSchema from "./signInSchema";
 
-const LoginForm = ({ loading, login }) => {
+const LoginForm = () => {
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.auth.loading);
+  const signIn = useCallback((values) => dispatch(login(values)), [dispatch]);
+
   return (
     <Formik
       initialValues={{
@@ -13,7 +17,7 @@ const LoginForm = ({ loading, login }) => {
         password: "",
       }}
       validationSchema={signInSchema}
-      onSubmit={login}
+      onSubmit={signIn}
     >
       <Form>
         <FormControl
@@ -44,12 +48,4 @@ const LoginForm = ({ loading, login }) => {
   );
 };
 
-const mapState = (state) => ({
-  loading: state.auth.loading,
-});
-
-const mapDispatch = {
-  login,
-};
-
-export default connect(mapState, mapDispatch)(LoginForm);
+export default LoginForm;

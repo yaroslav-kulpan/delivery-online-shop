@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
 import UserIcon from "../../shared/icons/UserIcon";
 
-const UserDetails = ({ user: { firstName, email } }) => {
+const UserDetails = () => {
+  const { email } = useSelector((state) => state.auth.user);
   return (
     <Link to="/profile" className="btn btn-light">
       <UserIcon />
@@ -13,8 +14,4 @@ const UserDetails = ({ user: { firstName, email } }) => {
   );
 };
 
-const mapState = (state) => ({
-  user: state.auth.user,
-});
-
-export default connect(mapState)(UserDetails);
+export default UserDetails;

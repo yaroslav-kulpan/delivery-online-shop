@@ -2,11 +2,17 @@ import React from "react";
 
 import { withFormik } from "../../hocs";
 import { toCurrency } from "../../lib";
+import { useHistory } from "react-router-dom";
 
 const PriceFilter = ({ handleChange, values, onSubmit }) => {
   const { minPrice, maxPrice } = values;
+  const history = useHistory();
   return (
-    <form onSubmit={onSubmit}>
+    <form
+      onSubmit={() =>
+        history.push(`?minPrice=${minPrice}&maxPrice=${maxPrice}`)
+      }
+    >
       <h5>Цена</h5>
       <div className="row mt-3">
         <div className="col-6">
