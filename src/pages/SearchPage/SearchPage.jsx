@@ -89,7 +89,7 @@ class SearchPage extends Component {
     return (
       <>
         <nav className="navbar navbar-light bg-light w-100 d-flex justify-content-center">
-          <Search onSubmit={this.onSubmit} />
+          <Search searchProducts={this.onSubmit} />
         </nav>
         <div className="container py-3">
           <ProductsGrid products={products} />

@@ -1,0 +1,144 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+  opacity: 1;
+  transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.dialog__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.modal {
+  position: fixed;
+  max-height: calc(100% - 64px);
+  max-width: 400px;
+  width: 400px;
+  margin: 32px;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2),
+  0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12);
+}
+
+.modal__content {
+  padding: 50px 30px 0 30px;
+
+}
+
+.content {
+  padding: 16px;
+}
+
+.header {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  padding: 16px;
+}
+
+.title__name {
+  margin: 0;
+}
+
+.sm {
+  max-width: 600px;
+}
+
+.md {
+  min-width: 900px;
+}
+
+.close_button {
+  position: absolute;
+  right: 8px;
+  top: 12px;
+  opacity: 0.3;
+
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* close button  */
+
+.close:hover,
+.close_button:hover {
+  opacity: 1;
+}
+
+.close:before,
+.close:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: " ";
+  height: 17px;
+  width: 2px;
+  background-color: #333;
+}
+
+.close:before {
+  transform: rotate(45deg);
+}
+
+.close:after {
+  transform: rotate(-45deg);
+}
+
+
+.enter {
+  opacity: 0;
+}
+
+.enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+.exit {
+  opacity: 1;
+}
+
+.exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+.enter {
+  opacity: 0;
+}
+
+.enterActive {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+
+.exit {
+  opacity: 1;
+}
+
+.exitActive {
+  opacity: 0;
+  transition: opacity 200ms;
+}
