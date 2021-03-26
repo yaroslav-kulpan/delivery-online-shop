@@ -1,11 +1,15 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Formik } from "formik";
 import FormControl from "../FormControl/FormControl";
 import { register } from "../../redux/auth/auth.operations";
 import signUpSchema from "./signUpSchema";
 
-const RegisterForm = ({ loading, register }) => {
+const RegisterForm = () => {
+
+  const loading = useSelector((state) => state.auth.loading);
+  const dispatch = useDispatch();
+
   return (
     <Formik
       initialValues={{
@@ -16,7 +20,7 @@ const RegisterForm = ({ loading, register }) => {
       }}
       validationSchema={signUpSchema}
       onSubmit={(values) => {
-        register(values);
+        dispatch(register(values));
         // alert(JSON.stringify(values, null, 2));
       }}
     >
@@ -63,12 +67,4 @@ const RegisterForm = ({ loading, register }) => {
   );
 };
 
-const mapState = (state) => ({
-  loading: state.auth.loading,
-});
-
-const mapDispatch = {
-  register,
-};
-
-export default connect(mapState, mapDispatch)(RegisterForm);
+export default RegisterForm;
