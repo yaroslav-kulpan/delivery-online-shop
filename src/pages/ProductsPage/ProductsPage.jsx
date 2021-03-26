@@ -37,6 +37,7 @@ class App extends PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log(prevProps);
     if (prevState.page !== this.state.page) {
       this.fetchProducts();
     }
